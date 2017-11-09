@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicConnection", "BasicConnection\BasicConnection.csproj", "{5A6AC29B-476A-472E-8B51-2EE677E51855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSensors", "WpfSensors\WpfSensors.csproj", "{12B2C54F-1FB8-4A68-A4B7-D6C53360984F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lego.Ev3.Desktop", "Lego.Ev3.Desktop\Lego.Ev3.Desktop.csproj", "{79C444DE-86F1-4AFF-903A-4B6ED31655EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A6AC29B-476A-472E-8B51-2EE677E51855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6AC29B-476A-472E-8B51-2EE677E51855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6AC29B-476A-472E-8B51-2EE677E51855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6AC29B-476A-472E-8B51-2EE677E51855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12B2C54F-1FB8-4A68-A4B7-D6C53360984F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B2C54F-1FB8-4A68-A4B7-D6C53360984F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B2C54F-1FB8-4A68-A4B7-D6C53360984F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B2C54F-1FB8-4A68-A4B7-D6C53360984F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C444DE-86F1-4AFF-903A-4B6ED31655EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C444DE-86F1-4AFF-903A-4B6ED31655EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C444DE-86F1-4AFF-903A-4B6ED31655EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C444DE-86F1-4AFF-903A-4B6ED31655EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {033A5533-3C7D-4FF7-B1DF-E5F8B560F0D1}
+	EndGlobalSection
+EndGlobal
