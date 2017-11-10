@@ -126,11 +126,16 @@ namespace WpfSensors
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float color = e.Ports[InputPort.Four].SIValue;
 
-            if (color == 1)
+            if (color == 0)
+            {
+                DriveMotors();
+            }
+            else
             {
                 Stop();
             }
 
+            //https://au.mathworks.com/help/supportpkg/legomindstormsev3/ref/colorsensor.html?s_tid=gn_loc_drop
 
         }
 
