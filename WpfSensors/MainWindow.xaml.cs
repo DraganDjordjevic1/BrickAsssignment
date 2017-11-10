@@ -49,7 +49,18 @@ namespace WpfSensors
 
             await brick.BatchCommand.SendCommandAsync();
         }
-        
+        async void Slow()
+        {
+            //Move the Brick Forwards and Backwards
+            //A = right wheel 
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 5, 1000, false);
+            //B = left wheel
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 5, 1000, false);
+
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
+
         async void Turn90()
         {
             //Turn the Brick 90 degrees to the left
@@ -57,6 +68,7 @@ namespace WpfSensors
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
+
 
         }
 
@@ -72,8 +84,8 @@ namespace WpfSensors
         async void Stop()
         {
             //Stop the Brick from moving
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 0, 1000, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 0, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 0, 1000, true);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 0, 1000, true);
 
             await brick.BatchCommand.SendCommandAsync();
         }
@@ -93,16 +105,18 @@ namespace WpfSensors
                    
             float distance = e.Ports[InputPort.Two].SIValue;
             float color = e.Ports[InputPort.Four].SIValue;
-            
-            if(distance <= 10) 
-            {
-                Stop();
-               
 
-            }
-            else if(distance > 10)
+            if(distance > 10)
             {
                 DriveMotors();
+            }
+            else if(distance <= 10 && distance > 3)
+            {
+                Slow();
+            }
+            else if(distance <= 3)
+            {
+                Stop();
             }
         }
 
