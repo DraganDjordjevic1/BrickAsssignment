@@ -121,6 +121,7 @@ namespace WpfSensors
                 Stop();
             }
 
+            //https://au.mathworks.com/help/supportpkg/legomindstormsev3/ref/colorsensor.html?s_tid=gn_loc_drop
 
         }
 
