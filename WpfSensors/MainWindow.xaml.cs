@@ -112,7 +112,11 @@ namespace WpfSensors
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float color = e.Ports[InputPort.Four].SIValue;
 
-            if (color == 1)
+            if (color == 0)
+            {
+                DriveMotors();
+            }
+            else
             {
                 Stop();
             }
