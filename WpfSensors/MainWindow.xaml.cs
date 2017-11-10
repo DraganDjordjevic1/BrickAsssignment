@@ -78,6 +78,11 @@ namespace WpfSensors
             await brick.BatchCommand.SendCommandAsync();
         }
 
+        void Brake()
+        {
+            brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
+        }
+
         void DetectMotion()
         {
 
