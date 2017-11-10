@@ -27,12 +27,7 @@ namespace WpfSensors
             InitializeComponent();
 
             ConnectToBrick();
-
-            
-            //DriveMotors();
-            //Turn90();
-
-
+            DriveMotors();
             brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
@@ -47,7 +42,6 @@ namespace WpfSensors
         async void DriveMotors()
         {
             //Move the Brick Forwards and Backwards
-
             //A = right wheel 
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
             //B = left wheel
@@ -59,8 +53,8 @@ namespace WpfSensors
         async void Turn90()
         {
             //Turn the Brick 90 degrees to the left
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
 
@@ -69,13 +63,21 @@ namespace WpfSensors
         async void Turn180()
         {
             //Turn the Brick around 180 degrees
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1000, false);
 
+            await brick.BatchCommand.SendCommandAsync();
         }
 
-        void DetectColour()
+        async void Stop()
         {
+            //Stop the Brick from moving
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 0, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 0, 1000, false);
 
+            await brick.BatchCommand.SendCommandAsync();
         }
+
         void DetectMotion()
         {
 
@@ -85,17 +87,20 @@ namespace WpfSensors
         {
             ButtonText.Text = e.Ports[InputPort.One].SIValue.ToString();
             DistanceText.Text = e.Ports[InputPort.Two].SIValue.ToString();
-            //GyroText.Text = e.Ports[InputPort.Three].SIValue.ToString();
+            GyroText.Text = e.Ports[InputPort.Three].SIValue.ToString();
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
 
                    
             float distance = e.Ports[InputPort.Two].SIValue;
+            float color = e.Ports[InputPort.Four].SIValue;
             
-            if(distance <= 20)
+            if(distance <= 10) 
             {
-                Turn90();
+                Stop();
+               
+
             }
-            else if(distance > 20)
+            else if(distance > 10)
             {
                 DriveMotors();
             }
@@ -109,7 +114,7 @@ namespace WpfSensors
 
             if (color == 1)
             {
-                Turn90();
+                Stop();
             }
 
 
