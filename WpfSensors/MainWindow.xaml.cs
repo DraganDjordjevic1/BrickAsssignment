@@ -113,6 +113,14 @@ namespace WpfSensors
 
         }
 
+        async void CollisionDectector()
+        {
+            brick.BatchCommand.StopMotor(OutputPort.A, false);
+            brick.BatchCommand.StopMotor(OutputPort.D, false);
+
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
         void BrickChanged(object sender, BrickChangedEventArgs e)
         {
             ButtonText.Text = e.Ports[InputPort.One].SIValue.ToString();
@@ -131,6 +139,11 @@ namespace WpfSensors
             else if(distance <= 10 && distance > 3)
             {
                 Slow();
+            }
+
+            else if (distance < 15)
+            {
+                CollisionDectector();
             }
             else if(distance <= 3)
             {
