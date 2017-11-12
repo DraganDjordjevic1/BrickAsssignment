@@ -156,6 +156,7 @@ namespace WpfSensors
             if (color == 1) //if it hits a black wall
             {
                 Brake();
+                Reverse();
                 Turn90();
                 brick.BrickChanged += BrickChanged;
             }
@@ -163,6 +164,7 @@ namespace WpfSensors
             if (color == 2) // if it hits a blue wall
             {
                 Brake();
+                Reverse();
                 Turn90();
                 brick.BrickChanged += BrickChanged;
             }
@@ -170,6 +172,7 @@ namespace WpfSensors
             if (color == 4) // if it hits a yellow wall
             {
                 Brake();
+                Reverse();
                 Turn90();
                 brick.BrickChanged += BrickChanged;
             }
@@ -177,6 +180,7 @@ namespace WpfSensors
             if (color == 5) // if it hits a red wall
             {
                 Brake();
+                Reverse();
                 Turn90();
                 brick.BrickChanged += BrickChanged;
             }
