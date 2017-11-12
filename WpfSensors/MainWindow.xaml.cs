@@ -27,10 +27,8 @@ namespace WpfSensors
         public MainWindow()
         {
             InitializeComponent();
-
             ConnectToBrick();
             brick.BrickChanged +=  DetectColor;
-            DriveMotors();
             brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
@@ -67,8 +65,8 @@ namespace WpfSensors
         async void Turn90()
         {
             //Turn the Brick 90 degrees to the left
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 1000, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 850, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 850, false);
 
             await brick.BatchCommand.SendCommandAsync();
 
@@ -78,15 +76,15 @@ namespace WpfSensors
         async void Turn180()
         {
             //Turn the Brick around 180 degrees
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1200, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1200, false);
 
             await brick.BatchCommand.SendCommandAsync();
         }
 
         async void Reverse()
         {
-            // Should move the brick backward
+            // Moves the brick backwards
 
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -50, 1000, false);
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1000, false);
@@ -105,6 +103,7 @@ namespace WpfSensors
 
         void Brake()
         {
+            // Applies the brakes to both motors
             brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
         }
 
