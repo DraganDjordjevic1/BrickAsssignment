@@ -113,6 +113,7 @@ namespace WpfSensors
 
         }
 
+        //CollisionDectector, stop the brick to avoid an object
         async void CollisionDectector()
         {
             brick.BatchCommand.StopMotor(OutputPort.A, false);
