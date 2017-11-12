@@ -2,6 +2,7 @@
 using Lego.Ev3.Desktop;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,15 +19,17 @@ using System.Windows.Shapes;
 namespace WpfSensors
 {
     public partial class MainWindow : Window
+
     {
         public Brick brick { get; set; }
-
+        private SerialPort bluetoothConnection = new SerialPort();
 
         public MainWindow()
         {
             InitializeComponent();
 
             ConnectToBrick();
+            brick.BrickChanged +=  DetectColor;
             DriveMotors();
             brick.BrickChanged += BrickChanged;
 
@@ -139,6 +142,36 @@ namespace WpfSensors
             {
                 Stop();
             }
+
+            if (color == 1) //if it hits a black wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+            if (color == 2) // if it hits a blue wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+            if (color == 4) // if it hits a yellow wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+            if (color == 5) // if it hits a red wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+
 
             //https://au.mathworks.com/help/supportpkg/legomindstormsev3/ref/colorsensor.html?s_tid=gn_loc_drop
 
