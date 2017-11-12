@@ -2,6 +2,7 @@
 using Lego.Ev3.Desktop;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,15 +19,17 @@ using System.Windows.Shapes;
 namespace WpfSensors
 {
     public partial class MainWindow : Window
+
     {
         public Brick brick { get; set; }
-
+        private SerialPort bluetoothConnection = new SerialPort();
 
         public MainWindow()
         {
             InitializeComponent();
 
             ConnectToBrick();
+            brick.BrickChanged +=  DetectColor;
             DriveMotors();
             brick.BrickChanged += BrickChanged;
 
@@ -49,7 +52,18 @@ namespace WpfSensors
 
             await brick.BatchCommand.SendCommandAsync();
         }
-        
+        async void Slow()
+        {
+            //Move the Brick Forwards and Backwards
+            //A = right wheel 
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 5, 1000, false);
+            //B = left wheel
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 5, 1000, false);
+
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
+
         async void Turn90()
         {
             //Turn the Brick 90 degrees to the left
@@ -57,6 +71,7 @@ namespace WpfSensors
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
+
 
         }
 
@@ -72,10 +87,15 @@ namespace WpfSensors
         async void Stop()
         {
             //Stop the Brick from moving
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 0, 1000, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 0, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 0, 1000, true);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 0, 1000, true);
 
             await brick.BatchCommand.SendCommandAsync();
+        }
+
+        void Brake()
+        {
+            brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
         }
 
         void DetectMotion()
@@ -93,16 +113,18 @@ namespace WpfSensors
                    
             float distance = e.Ports[InputPort.Two].SIValue;
             float color = e.Ports[InputPort.Four].SIValue;
-            
-            if(distance <= 10) 
-            {
-                Stop();
-               
 
-            }
-            else if(distance > 10)
+            if(distance > 10)
             {
                 DriveMotors();
+            }
+            else if(distance <= 10 && distance > 3)
+            {
+                Slow();
+            }
+            else if(distance <= 3)
+            {
+                Stop();
             }
         }
 
@@ -121,6 +143,37 @@ namespace WpfSensors
                 Stop();
             }
 
+            if (color == 1) //if it hits a black wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+            if (color == 2) // if it hits a blue wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+            if (color == 4) // if it hits a yellow wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+            if (color == 5) // if it hits a red wall
+            {
+                Brake();
+                Turn90();
+                brick.BrickChanged += BrickChanged;
+            }
+
+
+
+            //https://au.mathworks.com/help/supportpkg/legomindstormsev3/ref/colorsensor.html?s_tid=gn_loc_drop
 
         }
 
