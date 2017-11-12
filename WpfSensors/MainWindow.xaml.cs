@@ -84,6 +84,16 @@ namespace WpfSensors
             await brick.BatchCommand.SendCommandAsync();
         }
 
+        async void Reverse()
+        {
+            // Should move the brick backward
+
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -50, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1000, false);
+
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
         async void Stop()
         {
             //Stop the Brick from moving
