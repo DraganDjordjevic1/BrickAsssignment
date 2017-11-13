@@ -22,15 +22,15 @@ namespace WpfSensors
 
     {
         public Brick brick { get; set; }
-        private SerialPort bluetoothConnection = new SerialPort();
+
 
         public MainWindow()
         {
             InitializeComponent();
 
             ConnectToBrick();
-            brick.BrickChanged +=  DetectColor;
-            DriveMotors();
+           // brick.BrickChanged += DetectColor;
+            //DriveMotors();
             brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
@@ -130,22 +130,17 @@ namespace WpfSensors
             GyroText.Text = e.Ports[InputPort.Three].SIValue.ToString();
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
 
-                   
+
             float distance = e.Ports[InputPort.Two].SIValue;
             float color = e.Ports[InputPort.Four].SIValue;
 
-            if(distance > 10)
+            if (distance > 10)
             {
                 DriveMotors();
             }
             else if(distance <= 10 && distance > 3)
             {
                 Slow();
-            }
-
-            else if (distance < 15)
-            {
-                CollisionDectector();
             }
             else if(distance <= 3)
             {
@@ -159,55 +154,12 @@ namespace WpfSensors
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float color = e.Ports[InputPort.Four].SIValue;
 
-            if (color == 0)
-            {
-                DriveMotors();
             }
-            else
+            else if (distance <= 3)
             {
                 Brake();
             }
-
-            if (color == 1) //if it hits a black wall
-            {
-                Brake();
-                Reverse();
-                Turn90Left();
-                brick.BrickChanged += BrickChanged;
-            }
-
-            if (color == 2) // if it hits a blue wall
-            {
-                Brake();
-                Reverse();
-                Turn180();
-                brick.BrickChanged += BrickChanged;
-            }
-
-            if (color == 4) // if it hits a yellow wall
-            {
-                Brake();
-                Reverse();
-                Turn180();
-                brick.BrickChanged += BrickChanged;
-            }
-
-            if (color == 5) // if it hits a red wall
-            {
-                Brake();
-                Reverse();
-                Turn90Right();
-                brick.BrickChanged += BrickChanged;
-            }
-            //https://au.mathworks.com/help/supportpkg/legomindstormsev3/ref/colorsensor.html?s_tid=gn_loc_drop
         }
-
-        void DetectMotion()
-        {
-
-        }
-
-
     }
 }
 /*
