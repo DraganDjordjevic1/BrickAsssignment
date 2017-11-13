@@ -46,9 +46,9 @@ namespace WpfSensors
         async void DriveMotors()
         {
             //A = right wheel 
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 20, 1000, false);
             //B = left wheel
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 50, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 20, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
         }
