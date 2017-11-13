@@ -27,8 +27,10 @@ namespace WpfSensors
         public MainWindow()
         {
             InitializeComponent();
+
             ConnectToBrick();
             brick.BrickChanged +=  DetectColor;
+            DriveMotors();
             brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
@@ -40,9 +42,9 @@ namespace WpfSensors
             await brick.ConnectAsync();
         }
 
+        //Move the Brick Forwards and Backwards
         async void DriveMotors()
         {
-            //Move the Brick Forwards and Backwards
             //A = right wheel 
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
             //B = left wheel
@@ -50,66 +52,75 @@ namespace WpfSensors
 
             await brick.BatchCommand.SendCommandAsync();
         }
+
+        //Move the Brick forward but much slower than the normal speed
         async void Slow()
         {
-            //Move the Brick Forwards and Backwards
-            //A = right wheel 
+            //Right
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 5, 1000, false);
-            //B = left wheel
+            //Left
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 5, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
         }
 
-
-        async void Turn90()
+        //Stop the Brick
+        void Brake()
         {
-            //Turn the Brick 90 degrees to the left
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 850, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 850, false);
-
-            await brick.BatchCommand.SendCommandAsync();
-
-
+            brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
         }
 
-        async void Turn180()
-        {
-            //Turn the Brick around 180 degrees
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1200, false);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1200, false);
-
-            await brick.BatchCommand.SendCommandAsync();
-        }
-
+        //Move the Brick backwards slowly
         async void Reverse()
         {
-            // Moves the brick backwards
+            //Right
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -30, 1000, true);
+            //Left
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -30, 1000, true);
 
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -50, 1000, false);
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
+        //Turn the Brick 90 degrees to the left
+        async void Turn90Left()
+        {
+            //Right
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 1000, false);
+            //Left
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 1000, false);
+
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
+        //Turn the Brick 90 degrees to the right
+        async void Turn90Right()
+        {
+            //Right
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -40, 1000, false);
+            //Left
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 40, 1000, false);
+
+            await brick.BatchCommand.SendCommandAsync();
+        }
+
+        //Turn the Brick around 180 degrees
+        async void Turn180()
+        {
+            //Right
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
+            //Left
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -50, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
         }
 
-        async void Stop()
+        //CollisionDectector, stop the brick to avoid an object
+        async void CollisionDectector()
         {
-            //Stop the Brick from moving
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 0, 1000, true);
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, 0, 1000, true);
+            brick.BatchCommand.StopMotor(OutputPort.A, false);
+            brick.BatchCommand.StopMotor(OutputPort.D, false);
 
             await brick.BatchCommand.SendCommandAsync();
-        }
-
-        void Brake()
-        {
-            // Applies the brakes to both motors
-            brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
-        }
-
-        void DetectMotion()
-        {
-
         }
 
         void BrickChanged(object sender, BrickChangedEventArgs e)
@@ -131,9 +142,14 @@ namespace WpfSensors
             {
                 Slow();
             }
+
+            else if (distance < 15)
+            {
+                CollisionDectector();
+            }
             else if(distance <= 3)
             {
-                Stop();
+                Brake();
             }
         }
 
@@ -149,40 +165,45 @@ namespace WpfSensors
             }
             else
             {
-                Stop();
+                Brake();
             }
 
             if (color == 1) //if it hits a black wall
             {
                 Brake();
-                Turn90();
+                Reverse();
+                Turn90Left();
                 brick.BrickChanged += BrickChanged;
             }
 
             if (color == 2) // if it hits a blue wall
             {
                 Brake();
-                Turn90();
+                Reverse();
+                Turn180();
                 brick.BrickChanged += BrickChanged;
             }
 
             if (color == 4) // if it hits a yellow wall
             {
                 Brake();
-                Turn90();
+                Reverse();
+                Turn180();
                 brick.BrickChanged += BrickChanged;
             }
 
             if (color == 5) // if it hits a red wall
             {
                 Brake();
-                Turn90();
+                Reverse();
+                Turn90Right();
                 brick.BrickChanged += BrickChanged;
             }
-
-
-
             //https://au.mathworks.com/help/supportpkg/legomindstormsev3/ref/colorsensor.html?s_tid=gn_loc_drop
+        }
+
+        void DetectMotion()
+        {
 
         }
 
