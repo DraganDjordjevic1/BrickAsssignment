@@ -23,15 +23,13 @@ namespace WpfSensors
     {
         public Brick brick { get; set; }
 
-
         public MainWindow()
         {
             InitializeComponent();
 
-            ConnectToBrick();
-           // brick.BrickChanged += DetectColor;
-            //DriveMotors();
-            brick.BrickChanged += BrickChanged;
+            //ConnectToBrick();
+            //brick.BrickChanged += DetectColor;
+            //brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
         }
@@ -130,7 +128,6 @@ namespace WpfSensors
             GyroText.Text = e.Ports[InputPort.Three].SIValue.ToString();
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
 
-
             float distance = e.Ports[InputPort.Two].SIValue;
             float color = e.Ports[InputPort.Four].SIValue;
 
@@ -144,21 +141,16 @@ namespace WpfSensors
             }
             else if(distance <= 3)
             {
-                Brake();
+                CollisionDectector();
             }
         }
 
         void DetectColor(object sender, BrickChangedEventArgs e)
         {
-
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float color = e.Ports[InputPort.Four].SIValue;
 
-            }
-            else if (distance <= 3)
-            {
-                Brake();
-            }
+
         }
     }
 }

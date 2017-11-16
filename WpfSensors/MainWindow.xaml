@@ -7,41 +7,75 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="525">
     <Grid Margin="10,10,10,10">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="22">Lego Sensors Connection</TextBlock>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Padding="0, 0, 10, 0">Button:</TextBlock>
-            <TextBlock Name="ButtonText" Text="-"/>
-        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal"> 
-            <TextBlock Padding="0, 0, 10, 0">Distance Sensor:</TextBlock>
-            <TextBlock Name="DistanceText" Text="-"/>
-        </StackPanel>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Padding="0, 0, 10, 0">Gyro Sensor:</TextBlock>
-            <TextBlock Name="GyroText" Text="-"/>
-        </StackPanel>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Padding="0, 0, 10, 0">Button:</TextBlock>
+                        <TextBlock Name="ButtonText" Text="-"/>
+                    </StackPanel>
+                </Grid>
 
-        <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Padding="0, 0, 10, 0">ColorText:</TextBlock>
-            <TextBlock Name="ColorText" Text="-"/>
-        </StackPanel>
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Padding="0, 0, 10, 0">Distance Sensor:</TextBlock>
+                        <TextBlock Name="DistanceText" Text="-"/>
+                    </StackPanel>
+                </Grid>
 
-        
+                <Grid Grid.Row="2">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Padding="0, 0, 10, 0">Gyro Sensor:</TextBlock>
+                        <TextBlock Name="GyroText" Text="-"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Padding="0, 0, 10, 0">ColorText:</TextBlock>
+                        <TextBlock Name="ColorText" Text="-"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Padding="0, 0, 10, 0" HorizontalAlignment="Center" VerticalAlignment="Center">Choose the Home Base:</TextBlock>
+                    <ComboBox Name="HomeBaseComboBox" Text="-Choose Corner-" IsEditable="true" IsReadOnly="true">
+                        <ComboBoxItem Name="BlueRedCorner">Blue / Red</ComboBoxItem>
+                        <ComboBoxItem Name="BlueYellowCorner">Blue / Yellow</ComboBoxItem>
+                        <ComboBoxItem Name="BlackRedCorner">Black / Red</ComboBoxItem>
+                        <ComboBoxItem Name="BlackYellowCorner">Black / Yellow</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>     
+            </Grid>
+            
+        </Grid>
     </Grid>
 </Window>
