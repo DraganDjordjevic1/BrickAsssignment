@@ -27,9 +27,10 @@ namespace WpfSensors
         {
             InitializeComponent();
 
-            //ConnectToBrick();
-            //brick.BrickChanged += DetectColor;
-            //brick.BrickChanged += BrickChanged;
+            ConnectToBrick();
+            // brick.BrickChanged += DetectColor;
+            //DriveMotors();
+            brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
         }
@@ -129,29 +130,89 @@ namespace WpfSensors
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
 
             float distance = e.Ports[InputPort.Two].SIValue;
-            float color = e.Ports[InputPort.Four].SIValue;
+            
 
             if (distance > 10)
             {
                 DriveMotors();
             }
-            else if(distance <= 10 && distance > 3)
-            {
-                Slow();
-            }
-            else if(distance <= 3)
+            else if (distance <= 3)
             {
                 CollisionDectector();
             }
         }
 
-        void DetectColor(object sender, BrickChangedEventArgs e)
-        {
-            ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
-            float color = e.Ports[InputPort.Four].SIValue;
+        void HomeBase(string dhomebase)
+            {
 
+            switch (dhomebase)
+	{
+                case BlueYellow:
+                    //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueYellow:
+                    //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueYellow:
+                    //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+		        default:
+                    throw new NotImplementedException();
+                break;
+	        }
 
         }
+        void ColorDetection(object sender, BrickChangedEventArgs e)
+            {
+            float color = e.Ports[InputPort.Four].SIValue;
+            string black;
+            string blue;
+            string yellow;
+            string red;
+
+            //not sure if this will work, need to test this
+            if (color == 1)
+	        {
+                color = black;
+	        }
+            else if (color == 2)
+	        {
+                color = blue;
+	        }
+            else if (color == 4)
+	        {
+                color = yellow;
+	        }
+            else if (color == 5)
+	        {
+                color = red;
+	        }
+
+        }
+
     }
 }
 /*
