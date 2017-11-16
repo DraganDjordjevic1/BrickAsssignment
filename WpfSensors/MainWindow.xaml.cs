@@ -29,7 +29,7 @@ namespace WpfSensors
             InitializeComponent();
 
             ConnectToBrick();
-           // brick.BrickChanged += DetectColor;
+            // brick.BrickChanged += DetectColor;
             //DriveMotors();
             brick.BrickChanged += BrickChanged;
 
@@ -138,28 +138,59 @@ namespace WpfSensors
             {
                 DriveMotors();
             }
-            else if(distance <= 10 && distance > 3)
-            {
-                Slow();
-            }
-            else if(distance <= 3)
-            {
-                Brake();
-            }
-        }
-
-        void DetectColor(object sender, BrickChangedEventArgs e)
-        {
-
-            ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
-            float color = e.Ports[InputPort.Four].SIValue;
-
-            }
             else if (distance <= 3)
             {
                 Brake();
             }
         }
+
+        void HomeBase(string dhomebase)
+            {
+             //designate a home base
+             //two colors
+
+            switch (dhomebase)
+	{
+                case BlueYellow:
+                    //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueYellow:
+                    //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+                case BlueYellow:
+                    //michelle and tha input method for navigation here
+
+
+                case BlueRed:
+                     //michelle and tha input method for navigation here
+
+
+		        default:
+                    throw new NotImplementedException();
+                break;
+	        }
+
+        }
+
+
     }
 }
 /*
