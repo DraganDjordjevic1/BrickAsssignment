@@ -188,27 +188,24 @@ namespace WpfSensors
         void ColorDetection(object sender, BrickChangedEventArgs e)
             {
             float color = e.Ports[InputPort.Four].SIValue;
-            string black;
-            string blue;
-            string yellow;
-            string red;
+            int currentColor;
 
             //not sure if this will work, need to test this
             if (color == 1)
 	        {
-                color = black;
+                currentColor = 1;
 	        }
             else if (color == 2)
 	        {
-                color = blue;
+                currentColor = 2;
 	        }
             else if (color == 4)
 	        {
-                color = yellow;
+                currentColor = 4;
 	        }
             else if (color == 5)
 	        {
-                color = red;
+                currentColor = 5;
 	        }
 
         }
