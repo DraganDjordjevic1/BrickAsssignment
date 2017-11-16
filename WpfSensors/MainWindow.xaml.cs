@@ -132,7 +132,7 @@ namespace WpfSensors
 
 
             float distance = e.Ports[InputPort.Two].SIValue;
-            float color = e.Ports[InputPort.Four].SIValue;
+            
 
             if (distance > 10)
             {
@@ -146,8 +146,6 @@ namespace WpfSensors
 
         void HomeBase(string dhomebase)
             {
-             //designate a home base
-             //two colors
 
             switch (dhomebase)
 	{
@@ -189,7 +187,33 @@ namespace WpfSensors
 	        }
 
         }
+        void ColorDetection(object sender, BrickChangedEventArgs e)
+            {
+            float color = e.Ports[InputPort.Four].SIValue;
+            string black;
+            string blue;
+            string yellow;
+            string red;
 
+            //not sure if this will work, need to test this
+            if (color == 1)
+	        {
+                color = black;
+	        }
+            else if (color == 2)
+	        {
+                color = blue;
+	        }
+            else if (color == 4)
+	        {
+                color = yellow;
+	        }
+            else if (color == 5)
+	        {
+                color = red;
+	        }
+
+        }
 
     }
 }
