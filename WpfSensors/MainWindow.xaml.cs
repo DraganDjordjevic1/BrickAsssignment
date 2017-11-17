@@ -21,18 +21,14 @@ namespace WpfSensors
     public partial class MainWindow : Window
 
     {
-        MainWindow mw;
+
         public Brick brick { get; set; }
 
-        public MainWindow(string dhomebase)
+        public MainWindow(string dhomebase, object sender, BrickChangedEventArgs e)
         {
             InitializeComponent();
 
             ConnectToBrick();
-            // brick.BrickChanged += DetectColor;
-            //DriveMotors();
-            brick.BrickChanged += BrickChanged;
-
             this.DataContext = brick;
         }
 
@@ -40,6 +36,11 @@ namespace WpfSensors
         {
             brick = new Brick(new UsbCommunication());
             await brick.ConnectAsync();
+        }
+
+        private void SelectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            brick.BrickChanged += BrickChanged;
         }
 
         //Move the Brick Forwards and Backwards
@@ -146,28 +147,32 @@ namespace WpfSensors
         // blue, red, black, yellow
         // 2, 5, 1, 4
 
-        void HomeBase(int[] dhomebase)
+        void HomeBase(int[] dhomebase, object sender, BrickChangedEventArgs e)
             {
 
             // takes two numbers as a homebase
             // reads a color and checks if that value is in the array
+            int[] arena = { 2, 5, 1, 4, };
+
+            int currentColour = ColorDetection(sender, e);
 
             var index = Array.IndexOf(arena, currentColour);
 
-            int[] arena = { 2, 5, 1, 4, };
+            
             int Left;
-            int Right;
+            
 
             switch (index)
                 {
                 case 0:
                     Left = 3;
-
+                    break;
                 default: 
                     Left = index - 1;
+                    break;
                }
 
-            int currentColour = ColorDetection();
+            
 
             if (dhomebase.Contains(currentColour))
                 {
@@ -183,7 +188,7 @@ namespace WpfSensors
 
             else Turn180();
                  DriveMotors();
-                 HomeBase();
+            HomeBase(dhomebase, sender, e);
             }
        
         
@@ -210,19 +215,8 @@ namespace WpfSensors
                 currentColor = 5;
 	        }
 
-            return currentColor();
-        }
-
-        void HomeBaseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            mw = new MainWindow("BlueRedCorner");
+            return Convert.ToInt32(color);
             
-            mw = new MainWindow("BlueYellowCorner");
-
-            mw = new MainWindow("BlackRedCorner");
-
-            mw = new MainWindow("BlackYellowCorner");
-
         }
     }
 }
