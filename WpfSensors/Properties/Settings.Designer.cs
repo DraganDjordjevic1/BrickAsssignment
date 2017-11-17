@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfSensors.Properties
+namespace Wpf_BrickAssignment.Properties
 {
 
 

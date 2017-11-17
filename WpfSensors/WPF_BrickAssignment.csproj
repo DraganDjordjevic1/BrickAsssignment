@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Classes\Classes.csproj">
+      <Project>{e17182fd-2086-4a44-8e0d-d8b18ce6e74c}</Project>
+      <Name>Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lego.Ev3.Desktop\Lego.Ev3.Desktop.csproj">
       <Project>{79c444de-86f1-4aff-903a-4b6ed31655ea}</Project>
       <Name>Lego.Ev3.Desktop</Name>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfSensors
+namespace Wpf_BrickAssignment
 {
     /// <summary>
     /// Interaction logic for App.xaml
