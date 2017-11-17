@@ -143,50 +143,51 @@ namespace WpfSensors
             }
         }
 
-        void HomeBase(string dhomebase)
+        // blue, red, black, yellow
+        // 2, 5, 1, 4
+
+        void HomeBase(int[] dhomebase)
             {
 
-            switch (dhomebase)
-	{
-                case "BlueRedCorner":
-                    //michelle and tha input method for navigation here
+            // takes two numbers as a homebase
+            // reads a color and checks if that value is in the array
 
+            var index = Array.IndexOf(arena, currentColour);
 
-                case BlueRed:
-                     //michelle and tha input method for navigation here
+            int[] arena = { 2, 5, 1, 4, };
+            int Left;
+            int Right;
 
+            switch (index)
+                {
+                case 0:
+                    Left = 3;
 
-                case BlueYellow:
-                    //michelle and tha input method for navigation here
+                default: 
+                    Left = index - 1;
+               }
 
+            int currentColour = ColorDetection();
 
-                case BlueRed:
-                     //michelle and tha input method for navigation here
+            if (dhomebase.Contains(currentColour))
+                {
+                if (dhomebase.Contains(arena[Left]))
+                    {
+                    Turn90Left();
+                    DriveMotors();
+                    }
+                else 
+                    Turn90Right();
+                    DriveMotors();
+                }
 
-
-                case BlueRed:
-                     //michelle and tha input method for navigation here
-
-
-                case BlueRed:
-                     //michelle and tha input method for navigation here
-
-
-                case BlueYellow:
-                    //michelle and tha input method for navigation here
-
-
-                case BlueRed:
-                     //michelle and tha input method for navigation here
-
-
-		        default:
-                    throw new NotImplementedException();
-                break;
-	        }
-
-        }
-        void ColorDetection(object sender, BrickChangedEventArgs e)
+            else Turn180();
+                 DriveMotors();
+                 HomeBase();
+            }
+       
+        
+        int ColorDetection(object sender, BrickChangedEventArgs e)
             {
             float color = e.Ports[InputPort.Four].SIValue;
             int currentColor;
@@ -209,10 +210,10 @@ namespace WpfSensors
                 currentColor = 5;
 	        }
 
-            
+            return currentColor();
         }
 
-        private void HomeBaseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void HomeBaseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             mw = new MainWindow("BlueRedCorner");
             
@@ -237,21 +238,3 @@ namespace WpfSensors
  * Once both colors have been detected, it will park in that corner
  * 
  */
-  * 
-
-    if (Color == 2)
-    {
-    turn90left();
-    
-    if (Color == 5)
-    {
-    Stop();
-    }
-
-    }
-else 
-{
-turn90
-}
-
-    for michelle
