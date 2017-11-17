@@ -9,9 +9,7 @@ namespace Classes
 {
     public class DetectColor
     {
-        public Brick brick { get; set; }
-
-        int ColorDetection(object sender, BrickChangedEventArgs e)
+        public int ColorDetection(BrickChangedEventArgs e, Brick brick)
         {
             float color = e.Ports[InputPort.Four].SIValue;
             int currentColor;

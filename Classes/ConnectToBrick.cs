@@ -12,7 +12,7 @@ namespace Classes
    public class ConnectToBrick
     {
         public Brick brick { get; set; }
-        async void Connect()
+        public async void Connect()
         {
             brick = new Brick(new UsbCommunication());
             await brick.ConnectAsync();

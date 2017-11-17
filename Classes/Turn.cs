@@ -9,11 +9,8 @@ namespace Classes
 {
    public class Turn
     {
-        public Brick brick { get; set; }
-
-
         //Turn the Brick 90 degrees to the left
-        async void Turn90Left()
+        public async void Turn90Left(Brick brick)
         {
             //Right
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 1000, false);
@@ -24,7 +21,7 @@ namespace Classes
         }
 
         //Turn the Brick 90 degrees to the right
-        async void Turn90Right()
+        public async void Turn90Right(Brick brick)
         {
             //Right
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -40, 1000, false);
@@ -35,7 +32,7 @@ namespace Classes
         }
 
         //Turn the Brick around 180 degrees
-        async void Turn180()
+        public async void Turn180(Brick brick)
         {
             //Right
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);

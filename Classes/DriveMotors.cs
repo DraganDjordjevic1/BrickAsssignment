@@ -9,9 +9,8 @@ namespace Classes
 {
    public class DriveMotors
     {
-        public Brick brick { get; set; }
 
-        async void Drive()
+        public async void Drive(Brick brick)
         {
             //A = right wheel 
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
@@ -22,7 +21,7 @@ namespace Classes
         }
         
         //Move the Brick backwards slowly
-        async void Reverse()
+        public async void Reverse(Brick brick)
         {
             //Right
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, -30, 1000, true);

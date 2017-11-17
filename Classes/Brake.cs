@@ -10,9 +10,7 @@ namespace Classes
 
     public class Brake
     {
-        public Brick brick { get; set; }
-
-        void Stop()
+        public void Stop(Brick brick)
         {
             brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
         }

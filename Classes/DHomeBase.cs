@@ -9,15 +9,17 @@ namespace Classes
 {
     public class DHomeBase
     {
-        public Brick brick { get; set; }
-        void HomeBase(int[] dhomebase, object sender, BrickChangedEventArgs e)
+        public void HomeBase(int[] dhomebase, object e, Brick brick)
         {
-
+            DetectColor dc = new DetectColor();
+            Turn turns = new Turn();
+            DriveMotors dm = new DriveMotors();
+     
             // takes two numbers as a homebase
             // reads a color and checks if that value is in the array
             int[] arena = { 2, 5, 1, 4, };
 
-            int currentColour = ColorDetection(sender, e);
+            int currentColour = dc.ColorDetection(e, brick);
 
             var index = Array.IndexOf(arena, currentColour);
 
@@ -41,17 +43,17 @@ namespace Classes
             {
                 if (dhomebase.Contains(arena[Left]))
                 {
-                    Turn90Left();
-                    DriveMotors();
+                    turns.Turn90Left(brick);
+                    dm.Drive(brick);
                 }
                 else
-                    Turn90Right();
-                DriveMotors();
+                    turns.Turn90Right(brick);
+                dm.Drive(brick);
             }
 
-            else Turn180();
-            DriveMotors();
-            HomeBase(dhomebase, sender, e);
+            else turns.Turn180(brick);
+            dm.Drive(brick);
+            HomeBase(dhomebase, sender, e, brick);
         }
     }
 }
