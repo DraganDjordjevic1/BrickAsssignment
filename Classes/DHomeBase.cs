@@ -9,7 +9,7 @@ namespace Classes
 {
     public class DHomeBase
     {
-        public void HomeBase(int[] dhomebase, object e, Brick brick)
+        public void HomeBase(int[] dhomebase, BrickChangedEventArgs e, Brick brick)
         {
             DetectColor dc = new DetectColor();
             Turn turns = new Turn();
@@ -53,7 +53,7 @@ namespace Classes
 
             else turns.Turn180(brick);
             dm.Drive(brick);
-            HomeBase(dhomebase, sender, e, brick);
+            //HomeBase(dhomebase, sender, e, brick);
         }
     }
 }

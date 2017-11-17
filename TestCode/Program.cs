@@ -10,16 +10,16 @@ using Lego.Ev3.Desktop;
 namespace TestCode
 {
     class Program
-    { 
+    {
+        public static ConnectToBrick brick;
+
         static void Main(string[] args)
         {
-            ConnectToBrick b = new ConnectToBrick();
+            brick = new ConnectToBrick();
 
-            b.Connect();
-
-            DetectColor dc = new DetectColor();
+            brick.Connect();
             
-            dc.ColorDetection(.e, b.brick);
+            brick.brick.BrickChanged += EventCalled;
 
            // Turn turns = new Turn();
 
@@ -30,6 +30,15 @@ namespace TestCode
             //dm.Drive(b.brick);
             Console.ReadLine();
 
+        }
+
+        public static void EventCalled(object sender, BrickChangedEventArgs e)
+        {
+            DetectColor dc = new DetectColor();
+
+            
+
+            Console.WriteLine(dc.ColorDetection(e, brick.brick));
         }
     }
 }

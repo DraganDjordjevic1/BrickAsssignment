@@ -52,7 +52,7 @@ namespace Wpf_BrickAssignment
             }
             else if (distance <= 3)
             {
-                CollisionDectector();
+                //CollisionDectector();
             }
         }
 
