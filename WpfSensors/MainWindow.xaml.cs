@@ -21,9 +21,10 @@ namespace WpfSensors
     public partial class MainWindow : Window
 
     {
+        MainWindow mw;
         public Brick brick { get; set; }
 
-        public MainWindow()
+        public MainWindow(string dhomebase)
         {
             InitializeComponent();
 
@@ -147,7 +148,7 @@ namespace WpfSensors
 
             switch (dhomebase)
 	{
-                case BlueYellow:
+                case "BlueRedCorner":
                     //michelle and tha input method for navigation here
 
 
@@ -208,8 +209,20 @@ namespace WpfSensors
                 currentColor = 5;
 	        }
 
+            
         }
 
+        private void HomeBaseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mw = new MainWindow("BlueRedCorner");
+            
+            mw = new MainWindow("BlueYellowCorner");
+
+            mw = new MainWindow("BlackRedCorner");
+
+            mw = new MainWindow("BlackYellowCorner");
+
+        }
     }
 }
 /*
@@ -224,3 +237,21 @@ namespace WpfSensors
  * Once both colors have been detected, it will park in that corner
  * 
  */
+  * 
+
+    if (Color == 2)
+    {
+    turn90left();
+    
+    if (Color == 5)
+    {
+    Stop();
+    }
+
+    }
+else 
+{
+turn90
+}
+
+    for michelle

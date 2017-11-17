@@ -67,7 +67,7 @@
                 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Padding="0, 0, 10, 0" HorizontalAlignment="Center" VerticalAlignment="Center">Choose the Home Base:</TextBlock>
-                    <ComboBox Name="HomeBaseComboBox" Text="-Choose Corner-" IsEditable="true" IsReadOnly="true">
+                    <ComboBox Name="HomeBaseComboBox" Text="-Choose Corner-" IsEditable="true" IsReadOnly="true" SelectionChanged="HomeBaseComboBox_SelectionChanged">
                         <ComboBoxItem Name="BlueRedCorner">Blue / Red</ComboBoxItem>
                         <ComboBoxItem Name="BlueYellowCorner">Blue / Yellow</ComboBoxItem>
                         <ComboBoxItem Name="BlackRedCorner">Black / Red</ComboBoxItem>
