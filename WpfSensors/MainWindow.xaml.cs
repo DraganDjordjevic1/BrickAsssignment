@@ -146,28 +146,29 @@ namespace WpfSensors
         // blue, red, black, yellow
         // 2, 5, 1, 4
 
-        void HomeBase(int[] dhomebase)
+        void HomeBase(int[] dhomebase, Object sender, BrickChangedEventArgs e)
             {
 
             // takes two numbers as a homebase
             // reads a color and checks if that value is in the array
 
+            int[] arena = { 2, 5, 1, 4, };
+
+            int currentColour = Convert.ToInt32(e.Ports[InputPort.Four].SIValue);
+
             var index = Array.IndexOf(arena, currentColour);
 
-            int[] arena = { 2, 5, 1, 4, };
             int Left;
-            int Right;
 
             switch (index)
                 {
                 case 0:
                     Left = 3;
-
+                    break;
                 default: 
                     Left = index - 1;
+                    break;
                }
-
-            int currentColour = ColorDetection();
 
             if (dhomebase.Contains(currentColour))
                 {
@@ -183,7 +184,7 @@ namespace WpfSensors
 
             else Turn180();
                  DriveMotors();
-                 HomeBase();
+                 HomeBase(dhomebase, sender, e);
             }
        
         
@@ -210,7 +211,7 @@ namespace WpfSensors
                 currentColor = 5;
 	        }
 
-            return currentColor();
+            return Convert.ToInt32(color);
         }
 
         void HomeBaseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
