@@ -61,21 +61,25 @@
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.5*"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                
+
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Padding="0, 0, 10, 0" HorizontalAlignment="Center" VerticalAlignment="Center">Choose the Home Base:</TextBlock>
-                    <ComboBox Name="HomeBaseComboBox" Text="-Choose Corner-" IsEditable="true" IsReadOnly="true" SelectionChanged="HomeBaseComboBox_SelectionChanged">
+                    <ComboBox Name="HomeBaseComboBox" Text="-Choose Corner-" IsEditable="true" IsReadOnly="true">
                         <ComboBoxItem Name="BlueRedCorner">Blue / Red</ComboBoxItem>
                         <ComboBoxItem Name="BlueYellowCorner">Blue / Yellow</ComboBoxItem>
                         <ComboBoxItem Name="BlackRedCorner">Black / Red</ComboBoxItem>
                         <ComboBoxItem Name="BlackYellowCorner">Black / Yellow</ComboBoxItem>
                     </ComboBox>
-                </StackPanel>     
+                </StackPanel>
+
+                <Grid Grid.Row="1" Margin="2">
+                    <Button x:Name="SelectionButton" HorizontalAlignment="Left" FontSize="16" Content="Go" Padding="20,5,20,5" Click="SelectionButton_Click"/>
+                </Grid>
             </Grid>
-            
         </Grid>
     </Grid>
 </Window>
