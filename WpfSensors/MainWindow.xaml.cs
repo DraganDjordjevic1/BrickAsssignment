@@ -24,13 +24,13 @@ namespace WpfSensors
         MainWindow mw;
         public Brick brick { get; set; }
 
-        public MainWindow(string dhomebase)
+        public MainWindow(string dhomebase, Object sender, BrickChangedEventArgs e)
         {
             InitializeComponent();
 
             ConnectToBrick();
             // brick.BrickChanged += DetectColor;
-            //DriveMotors();
+            
             brick.BrickChanged += BrickChanged;
 
             this.DataContext = brick;
@@ -146,7 +146,7 @@ namespace WpfSensors
         // blue, red, black, yellow
         // 2, 5, 1, 4
 
-        void HomeBase(int[] dhomebase, Object sender, BrickChangedEventArgs e)
+        void HomeBase(int[] dhomebase, int color)
             {
 
             // takes two numbers as a homebase
@@ -154,9 +154,7 @@ namespace WpfSensors
 
             int[] arena = { 2, 5, 1, 4, };
 
-            int currentColour = Convert.ToInt32(e.Ports[InputPort.Four].SIValue);
-
-            var index = Array.IndexOf(arena, currentColour);
+            var index = Array.IndexOf(arena, color);
 
             int Left;
 
@@ -170,7 +168,7 @@ namespace WpfSensors
                     break;
                }
 
-            if (dhomebase.Contains(currentColour))
+            if (dhomebase.Contains(color))
                 {
                 if (dhomebase.Contains(arena[Left]))
                     {
@@ -184,7 +182,7 @@ namespace WpfSensors
 
             else Turn180();
                  DriveMotors();
-                 HomeBase(dhomebase, sender, e);
+                 HomeBase(dhomebase, color);
             }
        
         
@@ -213,7 +211,7 @@ namespace WpfSensors
 
             return Convert.ToInt32(color);
         }
-
+        /*
         void HomeBaseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             mw = new MainWindow("BlueRedCorner");
@@ -224,7 +222,7 @@ namespace WpfSensors
 
             mw = new MainWindow("BlackYellowCorner");
 
-        }
+        }*/
     }
 }
 /*
