@@ -10,7 +10,7 @@ namespace Classes
    public class DriveMotors
     {
 
-        public async void Drive(Brick brick)
+        public async void Drive( Brick brick)
         {
             //A = right wheel 
             brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 50, 1000, false);
@@ -30,6 +30,9 @@ namespace Classes
 
             await brick.BatchCommand.SendCommandAsync();
         }
-
+        public void Stop(Brick brick)
+        {
+            brick.DirectCommand.StopMotorAsync(OutputPort.All, true);
+        }
     }
 }

@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Brake.cs" />
     <Compile Include="ConnectToBrick.cs" />
     <Compile Include="DetectColor.cs" />
     <Compile Include="DHomeBase.cs" />

@@ -15,44 +15,50 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Classes;
 
 namespace Wpf_BrickAssignment
 {
     public partial class MainWindow : Window
     {
+             public static ConnectToBrick brick;
 
-        public Brick brick { get; set; }
-
-        public MainWindow(string dhomebase, object sender, BrickChangedEventArgs e)
+        public MainWindow()
         {
             InitializeComponent();
 
-            
+           brick = new ConnectToBrick(); // connecting to brick method.
+            brick.Connect();
+          
             this.DataContext = brick;
         }
-
         private void SelectionButton_Click(object sender, RoutedEventArgs e)
         {
-            brick.BrickChanged += BrickChanged;
+            brick.brick.BrickChanged += BrickChanged;
+
         }
 
         void BrickChanged(object sender, BrickChangedEventArgs e)
         {
-            ButtonText.Text = e.Ports[InputPort.One].SIValue.ToString();
-            DistanceText.Text = e.Ports[InputPort.Two].SIValue.ToString();
-            GyroText.Text = e.Ports[InputPort.Three].SIValue.ToString();
-            ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
+            DetectColor detectcolor = new DetectColor();                     //Console.WriteLine(dc.ColorDetection(e, brick.brick));
+            DHomeBase dhomebase = new DHomeBase();
+            DriveMotors drivemotors = new DriveMotors();
+            Turn turn = new Turn();
 
+            DistanceText.Text = e.Ports[InputPort.Two].SIValue.ToString();
+            ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float distance = e.Ports[InputPort.Two].SIValue;
 
+            detectcolor.ColorDetection(e, brick.brick); //color detection method
+            dhomebase.HomeBase(homebase, e, brick.brick);
 
             if (distance > 10)
             {
-                //DriveMotors();
+                drivemotors.Drive(brick.brick);
             }
             else if (distance <= 3)
             {
-                //CollisionDectector();
+                drivemotors.Stop(brick.brick);
             }
         }
 

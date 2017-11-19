@@ -9,7 +9,7 @@ namespace Classes
 {
     public class DHomeBase
     {
-        public void HomeBase(int[] dhomebase, BrickChangedEventArgs e, Brick brick)
+        public void HomeBase(int[] homebase, BrickChangedEventArgs e, Brick brick)
         {
             DetectColor dc = new DetectColor();
             Turn turns = new Turn();
@@ -39,9 +39,9 @@ namespace Classes
 
 
 
-            if (dhomebase.Contains(currentColour))
+            if (homebase.Contains(currentColour))
             {
-                if (dhomebase.Contains(arena[Left]))
+                if (homebase.Contains(arena[Left]))
                 {
                     turns.Turn90Left(brick);
                     dm.Drive(brick);
