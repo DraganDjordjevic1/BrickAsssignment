@@ -36,8 +36,6 @@ namespace TestCode
         {
             DetectColor dc = new DetectColor();
 
-            
-
             Console.WriteLine(dc.ColorDetection(e, brick.brick));
         }
     }

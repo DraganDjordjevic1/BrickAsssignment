@@ -13,9 +13,9 @@ namespace Classes
         public async void Turn90Left(Brick brick)
         {
             //Right
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 40, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.A, 85, 1000, false);
             //Left
-            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -40, 1000, false);
+            brick.BatchCommand.TurnMotorAtPowerForTime(OutputPort.D, -85, 1000, false);
 
             await brick.BatchCommand.SendCommandAsync();
         }

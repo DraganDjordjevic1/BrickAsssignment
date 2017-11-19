@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Classes;
+using System.Threading;
 
 namespace Wpf_BrickAssignment
 {
@@ -26,19 +27,25 @@ namespace Wpf_BrickAssignment
         public MainWindow()
         {
             InitializeComponent();
-
            brick = new ConnectToBrick(); // connecting to brick method.
             brick.Connect();
-          
+
+
             this.DataContext = brick;
         }
         private void SelectionButton_Click(object sender, RoutedEventArgs e)
         {
-            brick.brick.BrickChanged += BrickChanged;
-
+            if (HomeBaseComboBox.Text == "Blue / Red" || HomeBaseComboBox.Text == "Blue / Yellow" || HomeBaseComboBox.Text == "Black / Red" || HomeBaseComboBox.Text == "Black / Yellow")
+            {
+                brick.brick.BrickChanged += BrickChanged;
+            }
         }
 
-        void BrickChanged(object sender, BrickChangedEventArgs e)
+        private void HomeBaseComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+        public void BrickChanged(object sender, BrickChangedEventArgs e)
         {
             DetectColor detectcolor = new DetectColor();                     //Console.WriteLine(dc.ColorDetection(e, brick.brick));
             DHomeBase dhomebase = new DHomeBase();
@@ -49,9 +56,9 @@ namespace Wpf_BrickAssignment
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float distance = e.Ports[InputPort.Two].SIValue;
 
-            detectcolor.ColorDetection(e, brick.brick); //color detection method
-            dhomebase.HomeBase(homebase, e, brick.brick);
-
+             //color detection method    
+                detectcolor.ColorDetection(e, brick.brick);
+                
             if (distance > 10)
             {
                 drivemotors.Drive(brick.brick);
@@ -59,7 +66,18 @@ namespace Wpf_BrickAssignment
             else if (distance <= 3)
             {
                 drivemotors.Stop(brick.brick);
+                Thread.Sleep(1000);
+                turn.Turn90Left(brick.brick);
             }
+        }
+
+        public void navigation(int[] homebase, object sender, BrickChangedEventArgs e)
+        {
+            DHomeBase dhomebase = new DHomeBase();
+            dhomebase.HomeBase(homebase, e, brick.brick);
+
+
+
         }
 
     }
