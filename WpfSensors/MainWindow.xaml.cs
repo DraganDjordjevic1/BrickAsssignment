@@ -23,6 +23,7 @@ namespace Wpf_BrickAssignment
     public partial class MainWindow : Window
     {
              public static ConnectToBrick brick;
+        public int[] homebase;
 
         public MainWindow()
         {
@@ -33,11 +34,13 @@ namespace Wpf_BrickAssignment
 
             this.DataContext = brick;
         }
-        private void SelectionButton_Click(object sender, RoutedEventArgs e)
+        private void SelectionButton_Click(object sender, BrickChangedEventArgs e)
         {
+            DHomeBase dhomebase = new DHomeBase();
             if (HomeBaseComboBox.Text == "Blue / Red" || HomeBaseComboBox.Text == "Blue / Yellow" || HomeBaseComboBox.Text == "Black / Red" || HomeBaseComboBox.Text == "Black / Yellow")
             {
                 brick.brick.BrickChanged += BrickChanged;
+                dhomebase.HomeBase(homebase, e, brick.brick);
             }
         }
 
@@ -62,6 +65,7 @@ namespace Wpf_BrickAssignment
             if (distance > 10)
             {
                 drivemotors.Drive(brick.brick);
+                dhomebase.HomeBase(homebase, e, brick.brick);
             }
             else if (distance <= 3)
             {
