@@ -22,31 +22,24 @@ namespace Wpf_BrickAssignment
 {
     public partial class MainWindow : Window
     {
-             public static ConnectToBrick brick;
+        public static ConnectToBrick brick;
         public int[] homebase;
 
         public MainWindow()
         {
             InitializeComponent();
-           brick = new ConnectToBrick(); // connecting to brick method.
+            brick = new ConnectToBrick(); // connecting to brick method.
             brick.Connect();
 
 
             this.DataContext = brick;
         }
-        private void SelectionButton_Click(object sender, BrickChangedEventArgs e)
+        private void SelectionButton_Click(object sender, RoutedEventArgs e)
         {
-            DHomeBase dhomebase = new DHomeBase();
             if (HomeBaseComboBox.Text == "Blue / Red" || HomeBaseComboBox.Text == "Blue / Yellow" || HomeBaseComboBox.Text == "Black / Red" || HomeBaseComboBox.Text == "Black / Yellow")
             {
                 brick.brick.BrickChanged += BrickChanged;
-                dhomebase.HomeBase(homebase, e, brick.brick);
             }
-        }
-
-        private void HomeBaseComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-
         }
         public void BrickChanged(object sender, BrickChangedEventArgs e)
         {
@@ -59,9 +52,9 @@ namespace Wpf_BrickAssignment
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float distance = e.Ports[InputPort.Two].SIValue;
 
-             //color detection method    
-                detectcolor.ColorDetection(e, brick.brick);
-                
+            //color detection method    
+            detectcolor.ColorDetection(e, brick.brick);
+
             if (distance > 10)
             {
                 drivemotors.Drive(brick.brick);
@@ -74,16 +67,6 @@ namespace Wpf_BrickAssignment
                 turn.Turn90Left(brick.brick);
             }
         }
-
-        public void navigation(int[] homebase, object sender, BrickChangedEventArgs e)
-        {
-            DHomeBase dhomebase = new DHomeBase();
-            dhomebase.HomeBase(homebase, e, brick.brick);
-
-
-
-        }
-
     }
 }
 /*

@@ -18,6 +18,7 @@ namespace Classes
             // takes two numbers as a homebase
             // reads a color and checks if that value is in the array
             int[] arena = { 2, 5, 1, 4, };
+            
 
             int currentColour = dc.ColorDetection(e, brick);
 
