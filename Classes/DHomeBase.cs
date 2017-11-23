@@ -24,9 +24,7 @@ namespace Classes
 
             var index = Array.IndexOf(arena, currentColour);
 
-
             int Left;
-
 
             switch (index)
             {
@@ -37,8 +35,6 @@ namespace Classes
                     Left = index - 1;
                     break;
             }
-
-
 
             if (homebase.Contains(currentColour))
             {

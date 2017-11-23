@@ -31,15 +31,46 @@ namespace Wpf_BrickAssignment
             brick = new ConnectToBrick(); // connecting to brick method.
             brick.Connect();
 
-
             this.DataContext = brick;
         }
+
         private void SelectionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (HomeBaseComboBox.Text == "Blue / Red" || HomeBaseComboBox.Text == "Blue / Yellow" || HomeBaseComboBox.Text == "Black / Red" || HomeBaseComboBox.Text == "Black / Yellow")
-            {
-                brick.brick.BrickChanged += BrickChanged;
+            switch (HomeBaseComboBox.Text)
+
+            case "Blue / Red":
+                {
+                    homebase = new array[] { 2, 4 };
+                    brick.brick.BrickChanged += BrickChanged;
+                    return homebase;
+                }
+                break;
+
+            case "Blue / Yellow":
+                {
+                    homebase = new array[] { 2, 5 };
+                    brick.brick.BrickChanged += BrickChanged;
+                }
+                break;
+
+            case "Black / Red":
+                {
+                    homebase = new array[] { 1, 4 };
+                    brick.brick.BrickChanged += BrickChanged;
+                }
+                break;
+
+            case "Black / Yellow":
+                {
+                    homebase = new array[] { 1, 5 };
+                    brick.brick.BrickChanged += BrickChanged;
+                }
+            default:
+                {
+                    throw new NotImplementedException();
+                }
             }
+
         }
         public void BrickChanged(object sender, BrickChangedEventArgs e)
         {
@@ -52,7 +83,7 @@ namespace Wpf_BrickAssignment
             ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float distance = e.Ports[InputPort.Two].SIValue;
 
-            //color detection method    
+            //color detection method
             detectcolor.ColorDetection(e, brick.brick);
 
             if (distance > 10)
@@ -75,9 +106,9 @@ namespace Wpf_BrickAssignment
  * Turn slightly to the left to see the first corner
  * Turn slightly to the right to see the second corner
  * By knowning the two colors in the corner that the brick is located, it now knows where it is located
- * 
+ *
  * From its current location, move the brick to the home base
  * Detect the colors from the walls which are included in the homebase
  * Once both colors have been detected, it will park in that corner
- * 
+ *
  */
