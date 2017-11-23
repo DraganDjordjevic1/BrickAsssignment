@@ -18,11 +18,10 @@ namespace Classes
             // takes two numbers as a homebase
             // reads a color and checks if that value is in the array
             int[] arena = { 2, 5, 1, 4, };
-            
 
-            int currentColour = dc.ColorDetection(e, brick);
+            int color = dc.ColorDetection(e, brick);
 
-            var index = Array.IndexOf(arena, currentColour);
+            var index = Array.IndexOf(arena, color);
 
             int Left;
 
@@ -36,7 +35,7 @@ namespace Classes
                     break;
             }
 
-            if (homebase.Contains(currentColour))
+            if (homebase.Contains(color))
             {
                 if (homebase.Contains(arena[Left]))
                 {
