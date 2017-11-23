@@ -37,34 +37,34 @@ namespace Wpf_BrickAssignment
         private void SelectionButton_Click(object sender, RoutedEventArgs e)
         {
             switch (HomeBaseComboBox.Text)
-
+            { 
             case "Blue / Red":
                 {
-                    homebase = new array[] { 2, 4 };
-                    brick.brick.BrickChanged += BrickChanged;
-                    return homebase;
+                    homebase = new int[] { 2, 4 };
+                    brick.brick.BrickChanged += BrickChanged;                   
                 }
                 break;
 
             case "Blue / Yellow":
                 {
-                    homebase = new array[] { 2, 5 };
+                    homebase = new int[] { 2, 5 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
                 break;
 
             case "Black / Red":
                 {
-                    homebase = new array[] { 1, 4 };
+                    homebase = new int[] { 1, 4 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
                 break;
 
             case "Black / Yellow":
                 {
-                    homebase = new array[] { 1, 5 };
+                    homebase = new int[] { 1, 5 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
+                break;
             default:
                 {
                     throw new NotImplementedException();
@@ -88,14 +88,14 @@ namespace Wpf_BrickAssignment
 
             if (distance > 10)
             {
-                drivemotors.Drive(brick.brick);
+                drivemotors.Stop(brick.brick);
+
                 dhomebase.HomeBase(homebase, e, brick.brick);
             }
-            else if (distance <= 3)
+            if (distance <= 6)
             {
                 drivemotors.Stop(brick.brick);
-                Thread.Sleep(1000);
-                turn.Turn90Left(brick.brick);
+                dhomebase.HomeBase(homebase, e, brick.brick);
             }
         }
     }
