@@ -37,7 +37,7 @@ namespace Wpf_BrickAssignment
         private void SelectionButton_Click(object sender, RoutedEventArgs e)
         {
             switch (HomeBaseComboBox.Text)
-
+            { 
             case "Blue / Red":
                 {
                     homebase = new int[] { 2, 4 };
@@ -65,6 +65,7 @@ namespace Wpf_BrickAssignment
                     homebase = new int[] { 1, 5 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
+                break;
             default:
                 {
                     throw new NotImplementedException();
@@ -98,14 +99,14 @@ namespace Wpf_BrickAssignment
 
             if (distance > 10)
             {
-                drivemotors.Drive(brick.brick);
+                drivemotors.Stop(brick.brick);
+
                 dhomebase.HomeBase(homebase, e, brick.brick);
             }
-            else if (distance <= 3)
+            if (distance <= 6)
             {
                 drivemotors.Stop(brick.brick);
-                Thread.Sleep(1000);
-                turn.Turn90Left(brick.brick);
+                dhomebase.HomeBase(homebase, e, brick.brick);
             }
         }
     }
