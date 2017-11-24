@@ -34,9 +34,18 @@ namespace TestCode
 
         public static void EventCalled(object sender, BrickChangedEventArgs e)
         {
-            DetectColor dc = new DetectColor();
+            int[] colorArray = new int[10];
 
-            Console.WriteLine(dc.ColorDetection(e, brick.brick));
+            for (int i = 0; i < 10; i++)
+            {
+                float color = e.Ports[InputPort.Four].SIValue;
+                colorArray[i++] = Convert.ToInt32(color);
+            }
+
+            Console.WriteLine(colorArray);
+
+
         }
+
     }
 }
