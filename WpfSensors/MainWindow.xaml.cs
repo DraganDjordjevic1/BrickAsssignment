@@ -42,7 +42,6 @@ namespace Wpf_BrickAssignment
                 {
                     homebase = new int[] { 2, 4 };
                     brick.brick.BrickChanged += BrickChanged;
-                    return homebase;
                 }
                 break;
 
@@ -76,23 +75,23 @@ namespace Wpf_BrickAssignment
         }
         public void BrickChanged(object sender, BrickChangedEventArgs e)
         {
-            DetectColor detectcolor = new DetectColor();       //Console.WriteLine(dc.ColorDetection(e, brick.brick));
+            DetectColor detectcolor = new DetectColor();
             DHomeBase dhomebase = new DHomeBase();
             DriveMotors drivemotors = new DriveMotors();
             Turn turn = new Turn();
 
             DistanceText.Text = e.Ports[InputPort.Two].SIValue.ToString();
-            ColorText.Text = e.Ports[InputPort.Four].SIValue();
+            ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
             float distance = e.Ports[InputPort.Two].SIValue;
-
-            //color detection method
+            float color = e.Ports[InputPort.Four].SIValue;
+ 
             if (color == 1)
             {
-                turn.turn90left;
+                turn.Turn90Left(brick.brick);
             }
             else
             {
-                turn.turn90left;
+                turn.Turn90Right(brick.brick);
             }
 
             detectcolor.ColorDetection(e, brick.brick);
@@ -100,26 +99,15 @@ namespace Wpf_BrickAssignment
             if (distance > 10)
             {
                 drivemotors.Stop(brick.brick);
-
+                Thread.Sleep(1000);
                 dhomebase.HomeBase(homebase, e, brick.brick);
             }
             if (distance <= 6)
             {
                 drivemotors.Stop(brick.brick);
+                Thread.Sleep(1000);
                 dhomebase.HomeBase(homebase, e, brick.brick);
             }
         }
     }
 }
-/*
- * Find out what corner we are located in
- * Detect the colors of the corner which was first located in
- * Turn slightly to the left to see the first corner
- * Turn slightly to the right to see the second corner
- * By knowning the two colors in the corner that the brick is located, it now knows where it is located
- *
- * From its current location, move the brick to the home base
- * Detect the colors from the walls which are included in the homebase
- * Once both colors have been detected, it will park in that corner
- *
- */

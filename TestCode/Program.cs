@@ -17,32 +17,22 @@ namespace TestCode
         {
             brick = new ConnectToBrick();
 
-            brick.Connect();
-            
+            brick.Connect();            
             brick.brick.BrickChanged += EventCalled;
-
-           // Turn turns = new Turn();
-
-           // turns.Turn90Left(b.brick);
-
-            //DriveMotors dm = new DriveMotors();
-
-            //dm.Drive(b.brick);
             Console.ReadLine();
 
         }
 
         public static void EventCalled(object sender, BrickChangedEventArgs e)
         {
-            int[] colorArray = new int[10];
-
+            int[] colorArray = new int[10];           
             for (int i = 0; i < 10; i++)
             {
                 float color = e.Ports[InputPort.Four].SIValue;
-                colorArray[i++] = Convert.ToInt32(color);
+                colorArray[0] = Convert.ToInt32(color);             
             }
 
-            Console.WriteLine(colorArray);
+            Console.WriteLine(Convert.ToString(colorArray));
 
 
         }
