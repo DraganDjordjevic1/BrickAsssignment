@@ -40,7 +40,7 @@ namespace Wpf_BrickAssignment
 
             case "Blue / Red":
                 {
-                    homebase = new array[] { 2, 4 };
+                    homebase = new int[] { 2, 4 };
                     brick.brick.BrickChanged += BrickChanged;
                     return homebase;
                 }
@@ -48,21 +48,21 @@ namespace Wpf_BrickAssignment
 
             case "Blue / Yellow":
                 {
-                    homebase = new array[] { 2, 5 };
+                    homebase = new int[] { 2, 5 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
                 break;
 
             case "Black / Red":
                 {
-                    homebase = new array[] { 1, 4 };
+                    homebase = new int[] { 1, 4 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
                 break;
 
             case "Black / Yellow":
                 {
-                    homebase = new array[] { 1, 5 };
+                    homebase = new int[] { 1, 5 };
                     brick.brick.BrickChanged += BrickChanged;
                 }
             default:
@@ -70,20 +70,30 @@ namespace Wpf_BrickAssignment
                     throw new NotImplementedException();
                 }
             }
+           
 
         }
         public void BrickChanged(object sender, BrickChangedEventArgs e)
         {
-            DetectColor detectcolor = new DetectColor();                     //Console.WriteLine(dc.ColorDetection(e, brick.brick));
+            DetectColor detectcolor = new DetectColor();       //Console.WriteLine(dc.ColorDetection(e, brick.brick));
             DHomeBase dhomebase = new DHomeBase();
             DriveMotors drivemotors = new DriveMotors();
             Turn turn = new Turn();
 
             DistanceText.Text = e.Ports[InputPort.Two].SIValue.ToString();
-            ColorText.Text = e.Ports[InputPort.Four].SIValue.ToString();
+            ColorText.Text = e.Ports[InputPort.Four].SIValue();
             float distance = e.Ports[InputPort.Two].SIValue;
 
             //color detection method
+            if (color == 1)
+            {
+                turn.turn90left;
+            }
+            else
+            {
+                turn.turn90left;
+            }
+
             detectcolor.ColorDetection(e, brick.brick);
 
             if (distance > 10)
